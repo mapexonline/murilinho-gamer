@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cells.push(cell);
   }
 
-  // Linha base invisível (para detectar colisões)
+  // Linha base (para colisão)
   for (let i = 0; i < width; i++) {
     const cell = document.createElement("div");
     cell.classList.add("taken");
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     cells.push(cell);
   }
 
-  // Peças do Tetris
+  // Peças
   const lTetromino = [
     [1, width + 1, width * 2 + 1, 2],
     [width, width + 1, width + 2, width * 2 + 2],
@@ -68,7 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let current = tetrominos[random][currentRotation];
   let color = colors[random];
 
-  // Desenhar a peça
   function draw() {
     current.forEach(index => {
       cells[currentPosition + index].classList.add("filled");
@@ -76,7 +75,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Remover a peça
   function undraw() {
     current.forEach(index => {
       cells[currentPosition + index].classList.remove("filled");
@@ -84,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // Mover para baixo
   function moveDown() {
     undraw();
     currentPosition += width;
@@ -92,11 +89,9 @@ document.addEventListener("DOMContentLoaded", () => {
     freeze();
   }
 
-  // Verificar colisão e "congelar"
   function freeze() {
     if (current.some(index => cells[currentPosition + index + width].classList.contains("taken"))) {
       current.forEach(index => cells[currentPosition + index].classList.add("taken"));
-      // Nova peça
       random = Math.floor(Math.random() * tetrominos.length);
       current = tetrominos[random][0];
       color = colors[random];
@@ -107,7 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Mover esquerda
   function moveLeft() {
     undraw();
     const atLeftEdge = current.some(index => (currentPosition + index) % width === 0);
@@ -118,7 +112,6 @@ document.addEventListener("DOMContentLoaded", () => {
     draw();
   }
 
-  // Mover direita
   function moveRight() {
     undraw();
     const atRightEdge = current.some(index => (currentPosition + index) % width === width - 1);
@@ -129,7 +122,6 @@ document.addEventListener("DOMContentLoaded", () => {
     draw();
   }
 
-  // Rotacionar
   function rotate() {
     undraw();
     currentRotation = (currentRotation + 1) % 4;
@@ -137,7 +129,6 @@ document.addEventListener("DOMContentLoaded", () => {
     draw();
   }
 
-  // Pontuação
   function addScore() {
     for (let i = 0; i < 199; i += width) {
       const row = [...Array(width).keys()].map(x => i + x);
@@ -155,7 +146,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Fim de jogo
   function gameOver() {
     if (current.some(index => cells[currentPosition + index].classList.contains("taken"))) {
       scoreDisplay.innerHTML = "💀 Fim de jogo! Pontos: " + score;
@@ -163,7 +153,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Controles de teclado
   document.addEventListener("keydown", e => {
     if (e.key === "ArrowLeft") moveLeft();
     else if (e.key === "ArrowRight") moveRight();
@@ -171,13 +160,11 @@ document.addEventListener("DOMContentLoaded", () => {
     else if (e.key === "ArrowUp") rotate();
   });
 
-  // Tornar funções globais (para botões do HTML)
   window.moveLeft = moveLeft;
   window.moveRight = moveRight;
   window.rotate = rotate;
   window.drop = moveDown;
 
-  // Início automático
   draw();
   timerId = setInterval(moveDown, 700);
 });
