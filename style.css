@@ -1,0 +1,182 @@
+/* ============================= */
+/* 🌈 VARIÁVEIS GERAIS DE ESTILO */
+/* ============================= */
+:root {
+  --cor-fundo-pagina: linear-gradient(180deg, #a2d9ff, #ffffff);
+  --cor-texto: #333;
+  --fonte-principal: "Comic Sans MS", cursive;
+
+  /* 🧱 Container */
+  --cor-fundo-container: rgba(255, 255, 255, 0.9);
+  --sombra-container: 0 0 20px rgba(0, 0, 0, 0.3);
+  --raio-borda-container: 20px;
+
+  /* 🏷 Header */
+  --cor-titulo: #ff4e50;
+  --tamanho-titulo: 2rem;
+
+  /* 🕹️ Board (tabuleiro do jogo) */
+  --largura-board: 200px;
+  --altura-board: 400px;
+  --borda-board: 3px solid #4a90e2;
+  --sombra-board: 0 0 15px rgba(0, 0, 0, 0.3);
+  --fundo-board-img: url("img/dino.jpg");
+
+  /* 🎯 Sidebar */
+  --cor-fundo-sidebar: transparent;
+  --cor-botao: #ffcc00;
+  --cor-botao-hover: #ffe066;
+
+  /* 📜 Footer */
+  --cor-footer-texto: #555;
+}
+
+/* ============================= */
+/* 🌍 ESTRUTURA GERAL            */
+/* ============================= */
+body {
+  margin: 0;
+  font-family: var(--fonte-principal);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--cor-fundo-pagina);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  background-color: var(--cor-fundo-container);
+  border-radius: var(--raio-borda-container);
+  box-shadow: var(--sombra-container);
+  padding: 20px 40px;
+}
+
+.header h1 {
+  color: var(--cor-titulo);
+  text-shadow: 2px 2px #fff;
+  margin: 0;
+  text-align: center;
+}
+
+/* ============================= */
+/* 🎮 MAIN E ÁREA DO JOGO        */
+/* ============================= */
+.main {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.game-area {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.board {
+  width: var(--largura-board);
+  height: var(--altura-board);
+  display: grid;
+  grid-template-rows: repeat(20, 1fr);
+  grid-template-columns: repeat(10, 1fr);
+  border: var(--borda-board);
+  box-shadow: var(--sombra-board);
+  position: relative;
+  overflow: hidden;
+
+  /* 🖼️ imagem de fundo com o mesmo tamanho da board */
+  background-image: var(--fundo-board-img);
+  background-size: var(--largura-board) var(--altura-board);
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ============================= */
+/* 🧱 CÉLULAS E PEÇAS             */
+/* ============================= */
+.cell {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: transparent;
+  position: relative;
+  z-index: 2;
+}
+
+.filled {
+  border-radius: 4px;
+  z-index: 3;
+}
+
+/* ============================= */
+/* 🎯 SIDEBAR / CONTROLES        */
+/* ============================= */
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  background: var(--cor-fundo-sidebar);
+}
+
+.score {
+  font-size: 1.2em;
+  color: var(--cor-texto);
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.controls button {
+  background-color: var(--cor-botao);
+  border: none;
+  padding: 16px 24px;
+  border-radius: 12px;
+  font-size: 1.5em;
+  min-width: 80px;
+  cursor: pointer;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: 0.2s;
+  touch-action: manipulation; /* 🔹 melhora resposta no celular */
+}
+
+.controls button:hover {
+  background-color: var(--cor-botao-hover);
+}
+
+/* ============================= */
+/* 📜 FOOTER                     */
+/* ============================= */
+.footer {
+  font-size: 0.9em;
+  color: var(--cor-footer-texto);
+  text-align: center;
+}
+
+/* ============================= */
+/* 📱 RESPONSIVIDADE MOBILE      */
+/* ============================= */
+@media (max-width: 600px) {
+  :root {
+    --largura-board: 160px;
+    --altura-board: 320px;
+  }
+
+  .controls button {
+    font-size: 1.3em;
+    padding: 12px 18px;
+    min-width: 70px;
+  }
+
+  .score {
+    font-size: 1em;
+  }
+}
