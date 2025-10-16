@@ -163,13 +163,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Controles
+  // Controles de teclado
   document.addEventListener("keydown", e => {
     if (e.key === "ArrowLeft") moveLeft();
     else if (e.key === "ArrowRight") moveRight();
     else if (e.key === "ArrowDown") moveDown();
     else if (e.key === "ArrowUp") rotate();
   });
+
+  // Tornar funções globais (para botões do HTML)
+  window.moveLeft = moveLeft;
+  window.moveRight = moveRight;
+  window.rotate = rotate;
+  window.drop = moveDown;
 
   // Início automático
   draw();

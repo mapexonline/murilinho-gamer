@@ -197,3 +197,44 @@ body {
     font-size: 1.4em;
   }
 }
+/* ============================= */
+/* 📱 MODO RETRATO - CELULAR     */
+/* ============================= */
+@media (max-width: 600px) and (orientation: portrait) {
+  .main {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .game-area {
+    order: 1;
+  }
+
+  .sidebar {
+    order: 2;
+    margin-top: 20px;
+  }
+
+  :root {
+    --largura-board: 90vw;
+    --altura-board: 70vh;
+  }
+
+  .board {
+    width: var(--largura-board);
+    height: var(--altura-board);
+    background-size: cover;
+  }
+
+  .controls {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  .controls button {
+    width: 100%;
+    font-size: 1.6rem;
+    padding: 16px;
+  }
+}
